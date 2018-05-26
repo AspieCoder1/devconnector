@@ -1,6 +1,5 @@
 const express = require('express');
 const mongoose = require('mongoose');
-bodyParser = require('body-parser');
 
 const users = require('./routes/api/users');
 const profile = require('./routes/api/profile');
@@ -17,7 +16,6 @@ mongoose.connect(db).then(() => {
 	console.log(`MongoDB error: ${e}`);
 });
 
-app.use(bodyParser());
 app.get('/', (req, res) => res.send('Hello!'));
 
 app.use('/api/users', users);
