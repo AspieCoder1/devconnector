@@ -5,6 +5,7 @@ const passport = require('passport');
 
 const Profile = require('../../models/Profile');
 const User = require('../../models/User');
+const validateProfileInput = require('../../validation/profile');
 
 // @route 	GET api/profile
 // @desc 		Tests Profile Route
@@ -31,8 +32,13 @@ router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => 
 // @route 	POST api/profile
 // @desc 		Create and update user profile
 // @access 	Private
-router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => {
-	let errors = {};
+router.post('/', passport.authenticate('jwt', { session: false }), (req, res) => {
+	const { errors, isValid } = validateProfileInput(req.body);
+
+	if (!isValid) {
+		return res.status(400).json(errors);
+	}
+
 	const profileFields = {};
 	profileFields.user = req.user.id;
 	if (req.body.handle) profileFields.handle = req.body.handle;
