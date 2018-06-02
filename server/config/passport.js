@@ -16,6 +16,6 @@ module.exports = passport => {
 				return done(null, user);
 			}
 			return done(null, false);
-		}).catch((e) => console.log(e));
+		}).catch(e => console.log(e));
 	}));
 };

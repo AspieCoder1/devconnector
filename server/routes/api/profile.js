@@ -43,7 +43,7 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
 	if (req.body.bio) profileFields.bio = req.body.bio;
 	if (req.body.githubusername) profileFields.githubusername = req.body.githubusername;
 	if (typeof req.body.skills !== 'undefined') {
-		profileFields.skills = req.body.skills.split(',').map((skill) => skill.trim());
+		profileFields.skills = req.body.skills.split(',').map(skill => skill.trim());
 	}
 	profileFields.social = {};
 	if (req.body.youtube) profileFields.social.youtube = req.body.youtube;
@@ -52,16 +52,16 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
 	if (req.body.linkedin) profileFields.social.linkedin = req.body.linkedin;
 	if (req.body.instagram) profileFields.social.instagram = req.body.instagram;
 
-	Profile.findOne({ user: req.user.id }).then((profile) => {
+	Profile.findOne({ user: req.user.id }).then(profile => {
 		if (profile) {
-			Profile.findOneAndUpdate({ user: req.user.id}, { $set: profileFields }, { new: true }).then((profile) => res.status(200).json(profile));
+			Profile.findOneAndUpdate({ user: req.user.id}, { $set: profileFields }, { new: true }).then(profile => res.status(200).json(profile));
 		} else {
-			Profile.findOne({ handle: profileFields.handle }).then((profile) => {
+			Profile.findOne({ handle: profileFields.handle }).then(profile => {
 				if (profile) {
 					errors.handle = 'That handle already exists';
 					res.status(400).json(errors);
 				} else {
-					new Profile(profileFields).save().then((profile) => res.status(200).json(profile));
+					new Profile(profileFields).save().then(profile => res.status(200).json(profile));
 				}
 			});
 		}
@@ -73,7 +73,7 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
 // @access 	Public
 router.get('/all', (req, res) => {
 	let errors = {};
-	Profile.find().populate('user', ['name', 'avatar']).then((profiles) => {
+	Profile.find().populate('user', ['name', 'avatar']).then(profiles => {
 		if (!profiles) {
 			errors.noproflile = 'There are no profiles';
 			return res.status(404).json(errors);
@@ -89,7 +89,7 @@ router.get('/all', (req, res) => {
 router.get('/handle/:handle', (req, res) => {
 	let errors = {};
 
-	Profile.findOne({ handle: req.params.handle }).populate('user', ['name', 'avatar']).then((profile) => {
+	Profile.findOne({ handle: req.params.handle }).populate('user', ['name', 'avatar']).then(profile => {
 		if (!profile) {
 			errors.noprofile = 'There is no profile for this user';
 			res.status(404).json(errors);
@@ -104,7 +104,7 @@ router.get('/handle/:handle', (req, res) => {
 router.get('/user/:user_id', (req, res) => {
 	let errors = {};
 
-	Profile.findOne({ user: req.params.user_id }).populate('user', ['name', 'avatar']).then((profile) => {
+	Profile.findOne({ user: req.params.user_id }).populate('user', ['name', 'avatar']).then(profile => {
 		if (!profile) {
 			errors.noprofile = 'There is no profile for this user';
 			res.status(404).json(errors);
@@ -123,7 +123,7 @@ router.post('/experience', passport.authenticate('jwt', { session: false }), (re
 		return res.status(400).json(errors);
 	}
 
-	Profile.findOne({ user: req.user.id }).then((profile) => {
+	Profile.findOne({ user: req.user.id }).then(profile => {
 		const newExp = {
 			title: req.body.title,
 			company: req.body.company,
@@ -135,7 +135,7 @@ router.post('/experience', passport.authenticate('jwt', { session: false }), (re
 		};
 
 		profile.experience.unshift(newExp);
-		profile.save().then((profile) => res.status(200).json(profile));
+		profile.save().then(profile => res.status(200).json(profile));
 	});
 });
 
@@ -149,7 +149,7 @@ router.post('/education', passport.authenticate('jwt', { session: false }), (req
 		return res.status(400).json(errors);
 	}
 
-	Profile.findOne({ user: req.user.id }).then((profile) => {
+	Profile.findOne({ user: req.user.id }).then(profile => {
 		const newEdu = {
 			school: req.body.school,
 			degree: req.body.degree,
@@ -161,7 +161,7 @@ router.post('/education', passport.authenticate('jwt', { session: false }), (req
 		};
 
 		profile.education.unshift(newEdu);
-		profile.save().then((education) => res.status(200).json(education));
+		profile.save().then(education => res.status(200).json(education));
 	});
 });
 
@@ -169,7 +169,7 @@ router.post('/education', passport.authenticate('jwt', { session: false }), (req
 // @desc 		Deletes experience from profile
 // @access 	Private
 router.delete('/experience/:exp_id', passport.authenticate('jwt', { session: false }), (req, res) => {
-	Profile.findOne({ user: req.user.id }).then((profile) => {
+	Profile.findOne({ user: req.user.id }).then(profile => {
 		const removeIndex = profile.experience.map(item => item.id).indexOf(req.params.exp_id);
 		profile.experience.splice(removeIndex, 1);
 		profile.save().then(profile => res.status(200).json(profile)).catch(e => res.status(404).json({e}));
@@ -180,7 +180,7 @@ router.delete('/experience/:exp_id', passport.authenticate('jwt', { session: fal
 // @desc 		Deletes education from profile
 // @access 	Private
 router.delete('/education/:edu_id', passport.authenticate('jwt', { session: false }), (req, res) => {
-	Profile.findOne({ user: req.user.id }).then((profile) => {
+	Profile.findOne({ user: req.user.id }).then(profile => {
 		const removeIndex = profile.education.map(item => item.id).indexOf(req.params.edu_id);
 		profile.education.splice(removeIndex, 1);
 		profile.save().then(profile => res.status(200).json(profile)).catch(e => res.status(404).json({e}));

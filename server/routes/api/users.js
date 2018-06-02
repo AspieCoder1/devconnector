@@ -42,7 +42,7 @@ router.post('/register', (req, res) => {
 				bcrypt.hash(newUser.password, salt, (e, hash) => {
 					if (e) throw e;
 					newUser.password = hash;
-					newUser.save().then((user) => res.status(200).json(user)).catch((e) =>{
+					newUser.save().then(user => res.status(200).json(user)).catch(e =>{
 						console.log(e);
 					});
 				});
@@ -70,7 +70,7 @@ router.post('/login', (req, res) => {
 			return res.status(404).json(errors);
 		}
 
-		bcrypt.compare(password, user.password).then((isMatch) => {
+		bcrypt.compare(password, user.password).then(isMatch => {
 			if (isMatch) {
 				const payload = { id: user.id, name: user.name, avatar: user.avatar };
 				// Generate token

@@ -9,17 +9,17 @@ class Login extends Component {
 		errors: {}
 	}
 
-	onChange = (e) => {
+	onChange = e => {
 		this.setState({[e.target.name]: e.target.value});
 	};
 
-	onSubmit = (e) => {
+	onSubmit = e => {
 		e.preventDefault();
 		const user = {
 			email: this.state.email,
 			password: this.state.password
 		};
-		axios.post('/api/users/login', user).then((res) => console.log(JSON.stringify(res.data, undefined, 2))).catch((e) => this.setState({errors: e.response.data}));
+		axios.post('/api/users/login', user).then(res => console.log(JSON.stringify(res.data, undefined, 2))).catch(e => this.setState({errors: e.response.data}));
 	};
 
 	render() {
