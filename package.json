@@ -9,8 +9,9 @@
     "client-install": "npm install --prefix client",
     "client": "npm start --prefix client",
     "dev": "concurrently \"yarn server\" \"yarn client\"",
-    "lint": "eslint --fix ./",
-    "lint-server": "eslint --fix ./server"
+    "lint-server": "eslint --fix ./server",
+    "lint-client": "eslint --fix ./client",
+    "lint": "concurrently \"yarn lint-server\" \"yarn lint-client\""
   },
   "author": "",
   "license": "ISC",
