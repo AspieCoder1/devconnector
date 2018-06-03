@@ -25,11 +25,18 @@ class Login extends Component {
 		this.props.loginUser(user);
 	};
 
+	componentDidMount() {
+		if (this.props.auth.isAuthenticated) {
+			this.props.history.push('/dashboard');
+		}
+	}
+
 	// componentWillRecieveProps is deprecated
 	static getDerivedStateFromProps(nextProps) {
 		if (nextProps.auth.isAuthenticated) {
 			nextProps.history.push('/dashboard');
 		}
+		return null;
 	}
 
 	render() {
@@ -71,7 +78,8 @@ class Login extends Component {
 Login.propTypes = {
 	auth: PropTypes.object.isRequired,
 	errors: PropTypes.object.isRequired,
-	loginUser: PropTypes.func.isRequired
+	loginUser: PropTypes.func.isRequired,
+	history: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => ({
