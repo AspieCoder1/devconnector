@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { withRouter } from 'react-router-dom';
 import classnames from 'classnames';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import { registerUser } from '../../redux/actions/authActions';
 
@@ -63,7 +64,7 @@ class Register extends Component {
 								<div className="form-group">
 									<input type="email" className={classnames('form-control form-control-lg', {
 										'is-invalid': errors.email
-									})} placeholder="Email Address" name="email" value={this.state.email} onChange={this.onChange} />
+									})} placeholder="Email Address" autoComplete="password" name="email" value={this.state.email} onChange={this.onChange} />
 									<div className="invalid-feedback">
 										<p>{errors.email}</p>
 									</div>
@@ -72,7 +73,7 @@ class Register extends Component {
 								<div className="form-group">
 									<input type="password" className={classnames('form-control form-control-lg', {
 										'is-invalid': errors.password
-									})} placeholder="Password" name="password" value={this.state.password} onChange={this.onChange} />
+									})} placeholder="Password" autoComplete="password" name="password" value={this.state.password} onChange={this.onChange} />
 									<div className="invalid-feedback">
 										<p>{errors.password}</p>
 									</div>
@@ -80,7 +81,7 @@ class Register extends Component {
 								<div className="form-group">
 									<input type="password" className={classnames('form-control form-control-lg', {
 										'is-invalid': errors.password2
-									})} placeholder="Confirm Password" name="password2" value={this.state.password2}onChange={this.onChange} />
+									})} placeholder="Confirm Password" autoComplete="password" name="password2" value={this.state.password2}onChange={this.onChange} />
 									<div className="invalid-feedback">
 										<p>{errors.password2}</p>
 									</div>
@@ -94,6 +95,13 @@ class Register extends Component {
 		);
 	}
 }
+
+Register.propTypes = {
+	auth: PropTypes.object.isRequired,
+	errors: PropTypes.object.isRequired,
+	registerUser: PropTypes.func.isRequired,
+	history: PropTypes.object.isRequired
+};
 
 const mapStateToProps = state => ({
 	auth: state.auth,

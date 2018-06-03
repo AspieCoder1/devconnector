@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import classnames from 'classnames';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import { loginUser } from '../../redux/actions/authActions';
 
@@ -24,17 +25,15 @@ class Login extends Component {
 		this.props.loginUser(user);
 	};
 
+	// componentWillRecieveProps is deprecated
 	static getDerivedStateFromProps(nextProps) {
-		if (nextProps.errors) {
-			return {
-				errors: nextProps.errors
-			};
+		if (nextProps.auth.isAuthenticated) {
+			nextProps.history.push('/dashboard');
 		}
-		return null;
 	}
 
 	render() {
-		const { errors } = this.state;
+		const { errors } = this.props;
 		return (
 			<div className="login">
 				<div className="container">
@@ -46,7 +45,7 @@ class Login extends Component {
 								<div className="form-group">
 									<input type="email" className={classnames('form-control form-control-lg', {
 										'is-invalid': errors.email
-									})} placeholder="Email Address" name="email" value={this.state.email} onChange={this.onChange} />
+									})} placeholder="Email Address" autoComplete="email" name="email" value={this.state.email} onChange={this.onChange} />
 									<div className="invalid-feedback">
 										<p>{errors.email}</p>
 									</div>
@@ -54,7 +53,7 @@ class Login extends Component {
 								<div className="form-group">
 									<input type="password" className={classnames('form-control form-control-lg', {
 										'is-invalid': errors.password
-									})} placeholder="Password" name="password" value={this.state.password} onChange={this.onChange} />
+									})} placeholder="Password" autoComplete="password" name="password" value={this.state.password} onChange={this.onChange} />
 									<div className="invalid-feedback">
 										<p>{errors.password}</p>
 									</div>
@@ -68,6 +67,12 @@ class Login extends Component {
 		);
 	}
 }
+
+Login.propTypes = {
+	auth: PropTypes.object.isRequired,
+	errors: PropTypes.object.isRequired,
+	loginUser: PropTypes.func.isRequired
+};
 
 const mapStateToProps = state => ({
 	auth: state.auth,
