@@ -1,3 +1,5 @@
+import isEmpty from '../../utils/is-empty';
+
 const initialState = {
 	isAuthenticated: false,
 	user: {}
@@ -5,10 +7,11 @@ const initialState = {
 
 export default (state = initialState, action) => {
 	switch (action.type) {
-		case 'REGISTER_USER':
+		case 'SET_CURRENT_USER':
 			return {
 				...state,
-				user: action.payload
+				user: action.payload,
+				isAuthenticated: !isEmpty(action.payload)
 			};
 		default:
 			return state;

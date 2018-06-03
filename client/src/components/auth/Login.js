@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import classnames from 'classnames';
+import { connect } from 'react-redux';
+
+import { loginUser } from '../../redux/actions/authActions';
 
 class Login extends Component {
 	state = {
@@ -19,8 +21,17 @@ class Login extends Component {
 			email: this.state.email,
 			password: this.state.password
 		};
-		axios.post('/api/users/login', user).then(res => console.log(JSON.stringify(res.data, undefined, 2))).catch(e => this.setState({errors: e.response.data}));
+		this.props.loginUser(user);
 	};
+
+	static getDerivedStateFromProps(nextProps) {
+		if (nextProps.errors) {
+			return {
+				errors: nextProps.errors
+			};
+		}
+		return null;
+	}
 
 	render() {
 		const { errors } = this.state;
@@ -58,4 +69,9 @@ class Login extends Component {
 	}
 }
 
-export default Login;
+const mapStateToProps = state => ({
+	auth: state.auth,
+	errors: state.errors
+});
+
+export default connect(mapStateToProps, { loginUser })(Login);
