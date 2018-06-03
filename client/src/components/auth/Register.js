@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
 import { withRouter } from 'react-router-dom';
-import classnames from 'classnames';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { registerUser } from '../../redux/actions/authActions';
-
+import TextField from '../common/TextField';
 class Register extends Component {
 	state = {
 		name: '',
@@ -59,39 +58,10 @@ class Register extends Component {
 							<h1 className="display-4 text-center">Sign Up</h1>
 							<p className="lead text-center">Create your DevConnector account</p>
 							<form action="create-profile.html" noValidate onSubmit={this.onSubmit}>
-								<div className="form-group">
-									<input type="text" className={classnames('form-control form-control-lg', {
-										'is-invalid': errors.name 
-									})} placeholder="Name" name="name" value={this.state.name} onChange={this.onChange} />
-									<div className="invalid-feedback">
-										<p>{errors.name}</p>
-									</div>
-								</div>
-								<div className="form-group">
-									<input type="email" className={classnames('form-control form-control-lg', {
-										'is-invalid': errors.email
-									})} placeholder="Email Address" autoComplete="password" name="email" value={this.state.email} onChange={this.onChange} />
-									<div className="invalid-feedback">
-										<p>{errors.email}</p>
-									</div>
-									<small className="form-text text-muted">This site uses Gravatar so if you want a profile image, use a Gravatar email</small>
-								</div>
-								<div className="form-group">
-									<input type="password" className={classnames('form-control form-control-lg', {
-										'is-invalid': errors.password
-									})} placeholder="Password" autoComplete="password" name="password" value={this.state.password} onChange={this.onChange} />
-									<div className="invalid-feedback">
-										<p>{errors.password}</p>
-									</div>
-								</div>
-								<div className="form-group">
-									<input type="password" className={classnames('form-control form-control-lg', {
-										'is-invalid': errors.password2
-									})} placeholder="Confirm Password" autoComplete="password" name="password2" value={this.state.password2}onChange={this.onChange} />
-									<div className="invalid-feedback">
-										<p>{errors.password2}</p>
-									</div>
-								</div>
+								<TextField placeholder="Name" name="name" value={this.state.name} onChange={this.onChange} error={errors.name} autoComplete="name" />
+								<TextField placeholder="Email" name="email" type="email" value={this.state.email} onChange={this.onChange} error={errors.email} info="This site uses Gravatar so if you want a profile picture, use a Gravatar email address" autoComplete="email" />
+								<TextField placeholder="Password" name="password" type="password" value={this.state.password} onChange={this.onChange} error={errors.password} autoComplete="password" />
+								<TextField placeholder="Confirm Password" name="password2" type="password" value={this.state.password2} onChange={this.onChange} error={errors.password2} autoComplete="password" />
 								<input type="submit" className="btn btn-info btn-block mt-4" />
 							</form>
 						</div>
