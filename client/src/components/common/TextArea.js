@@ -2,43 +2,32 @@ import React from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 
-const TextField = ({
+const TextArea = ({
 	name, 
 	placeholder, 
-	value, 
-	label, 
+	value,
 	error, 
-	info, 
-	type, 
+	info,  
 	onChange, 
-	disabled,
 	autoComplete
 }) => {
 	return (
 		<div className="form-group">
-			{label && <label>{label}</label>}
-			<input type={type} className={classnames('form-control form-control-lg', {'is-invalid': error})} placeholder={placeholder} autoComplete={autoComplete} name={name} value={value} onChange={onChange} disabled={disabled} />
+			<textarea  className={classnames('form-control form-control-lg', { 'is-invalid': error })} placeholder={placeholder} autoComplete={autoComplete} name={name} value={value} onChange={onChange} />
 			{info && <small className="form-text text-muted">{info}</small>}
 			{error && <div className="invalid-feedback">{error}</div>}
 		</div>
 	);
 };
 
-TextField.propTypes = {
+TextArea.propTypes = {
 	name: PropTypes.string.isRequired,
 	placeholder: PropTypes.string,
 	value: PropTypes.string.isRequired,
 	info: PropTypes.string,
 	error: PropTypes.string,
 	onChange: PropTypes.func.isRequired,
-	disabled: PropTypes.string,
-	label: PropTypes.string,
-	type: PropTypes.string,
 	autoComplete: PropTypes.string
 };
 
-TextField.defaultProps = {
-	text: 'text'
-};
-
-export default TextField;
+export default TextArea;
