@@ -27,7 +27,7 @@ const FileSizeReporter = require('react-dev-utils/FileSizeReporter');
 const printBuildError = require('react-dev-utils/printBuildError');
 
 const measureFileSizesBeforeBuild =
-  FileSizeReporter.measureFileSizesBeforeBuild;
+	FileSizeReporter.measureFileSizesBeforeBuild;
 const printFileSizesAfterBuild = FileSizeReporter.printFileSizesAfterBuild;
 const useYarn = fs.existsSync(paths.yarnLockFile);
 
@@ -59,13 +59,13 @@ measureFileSizesBeforeBuild(paths.appBuild)
 				console.log(warnings.join('\n\n'));
 				console.log(
 					'\nSearch for the ' +
-            chalk.underline(chalk.yellow('keywords')) +
-            ' to learn more about each warning.'
+						chalk.underline(chalk.yellow('keywords')) +
+						' to learn more about each warning.'
 				);
 				console.log(
 					'To ignore, add ' +
-            chalk.cyan('// eslint-disable-next-line') +
-            ' to the line before.\n'
+						chalk.cyan('// eslint-disable-next-line') +
+						' to the line before.\n'
 				);
 			} else {
 				console.log(chalk.green('Compiled successfully.\n'));
@@ -121,14 +121,14 @@ function build(previousFileSizes) {
 			}
 			if (
 				process.env.CI &&
-        (typeof process.env.CI !== 'string' ||
-          process.env.CI.toLowerCase() !== 'false') &&
-        messages.warnings.length
+				(typeof process.env.CI !== 'string' ||
+					process.env.CI.toLowerCase() !== 'false') &&
+				messages.warnings.length
 			) {
 				console.log(
 					chalk.yellow(
 						'\nTreating warnings as errors because process.env.CI = true.\n' +
-              'Most CI servers set it automatically.\n'
+							'Most CI servers set it automatically.\n'
 					)
 				);
 				return reject(new Error(messages.warnings.join('\n\n')));
@@ -136,7 +136,7 @@ function build(previousFileSizes) {
 			return resolve({
 				stats,
 				previousFileSizes,
-				warnings: messages.warnings,
+				warnings: messages.warnings
 			});
 		});
 	});
@@ -145,6 +145,6 @@ function build(previousFileSizes) {
 function copyPublicFolder() {
 	fs.copySync(paths.appPublic, paths.appBuild, {
 		dereference: true,
-		filter: file => file !== paths.appHtml,
+		filter: file => file !== paths.appHtml
 	});
 }

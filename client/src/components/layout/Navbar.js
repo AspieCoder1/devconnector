@@ -6,7 +6,6 @@ import { logoutUser } from '../../redux/actions/authActions';
 import { clearProfile } from '../../redux/actions/profileActions';
 
 class Navbar extends Component {
-
 	onLogout = e => {
 		e.preventDefault();
 		this.props.clearProfile();
@@ -20,8 +19,14 @@ class Navbar extends Component {
 			<ul className="navbar-nav ml-auto">
 				<li className="nav-item">
 					<a href="#" className="nav-link" onClick={this.onLogout}>
-						<img src={user.avatar} alt={user.name} className="rounded-circle" style={{ width: '25px', marginRight: '5px'}} title="You must have a gravatar connected to your email to display avatar"/>
-						{' '}Logout
+						<img
+							src={user.avatar}
+							alt={user.name}
+							className="rounded-circle"
+							style={{ width: '25px', marginRight: '5px' }}
+							title="You must have a gravatar connected to your email to display avatar"
+						/>{' '}
+						Logout
 					</a>
 				</li>
 			</ul>
@@ -30,10 +35,14 @@ class Navbar extends Component {
 		const guestLinks = (
 			<ul className="navbar-nav ml-auto">
 				<li className="nav-item">
-					<Link className="nav-link" to="/register">Sign Up</Link>
+					<Link className="nav-link" to="/register">
+						Sign Up
+					</Link>
 				</li>
 				<li className="nav-item">
-					<Link className="nav-link" to="/login">Login</Link>
+					<Link className="nav-link" to="/login">
+						Login
+					</Link>
 				</li>
 			</ul>
 		);
@@ -41,14 +50,24 @@ class Navbar extends Component {
 		return (
 			<nav className="navbar navbar-expand-sm navbar-dark bg-dark mb-4">
 				<div className="container">
-					<Link className="navbar-brand" to="/">DevConnector</Link>
-					<button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#mobile-nav">
-						<span className="navbar-toggler-icon"></span>
+					<Link className="navbar-brand" to="/">
+						DevConnector
+					</Link>
+					<button
+						className="navbar-toggler"
+						type="button"
+						data-toggle="collapse"
+						data-target="#mobile-nav"
+					>
+						<span className="navbar-toggler-icon" />
 					</button>
 					<div className="collapse navbar-collapse" id="mobile-nav">
 						<ul className="navbar-nav mr-auto">
 							<li className="nav-item">
-								<Link className="nav-link" to="/profiles"> Developers</Link>
+								<Link className="nav-link" to="/profiles">
+									{' '}
+									Developers
+								</Link>
 							</li>
 						</ul>
 						{isAuthenticated ? authLinks : guestLinks}
@@ -69,4 +88,7 @@ const mapStateToProps = state => ({
 	auth: state.auth
 });
 
-export default connect(mapStateToProps, { logoutUser, clearProfile })(Navbar);
+export default connect(
+	mapStateToProps,
+	{ logoutUser, clearProfile }
+)(Navbar);

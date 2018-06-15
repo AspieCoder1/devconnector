@@ -46,10 +46,10 @@ class CreateProfile extends Component {
 		};
 
 		this.props.createProfile(newProfile, this.props.history);
-	}
+	};
 
 	onChange = e => {
-		this.setState({[e.target.name]: e.target.value});
+		this.setState({ [e.target.name]: e.target.value });
 	};
 
 	// componentWillRecieveProps is deprecated
@@ -72,18 +72,53 @@ class CreateProfile extends Component {
 			{ label: 'Manager', value: 'Manager' },
 			{ label: 'Student', value: 'Student' },
 			{ label: 'Intern', value: 'Intern' },
-			{ label: 'Other', value: 'Other' },
+			{ label: 'Other', value: 'Other' }
 		];
 
 		let socialInputs;
 		if (displaySocialInputs) {
 			socialInputs = (
 				<div>
-					<InputGroup placeholder="Twitter" name="twitter" icon="fab fa-twitter" value={this.state.twitter} onChange={this.onChange} error={errors.twitter}/>
-					<InputGroup placeholder="Facebook" name="facebook" icon="fab fa-facebook" value={this.state.facebook} onChange={this.onChange} error={errors.facebook}/>
-					<InputGroup placeholder="LinkedIn" name="linkedin" icon="fab fa-linkedin" value={this.state.linkedin} onChange={this.onChange} error={errors.linkedin}/>
-					<InputGroup placeholder="Youtube" name="youtube" icon="fab fa-youtube" value={this.state.youtube} onChange={this.onChange} error={errors.youtube}/>				
-					<InputGroup placeholder="Instagram" name="instagram" icon="fab fa-instagram" value={this.state.instagram} onChange={this.onChange} error={errors.instagram}/>
+					<InputGroup
+						placeholder="Twitter"
+						name="twitter"
+						icon="fab fa-twitter"
+						value={this.state.twitter}
+						onChange={this.onChange}
+						error={errors.twitter}
+					/>
+					<InputGroup
+						placeholder="Facebook"
+						name="facebook"
+						icon="fab fa-facebook"
+						value={this.state.facebook}
+						onChange={this.onChange}
+						error={errors.facebook}
+					/>
+					<InputGroup
+						placeholder="LinkedIn"
+						name="linkedin"
+						icon="fab fa-linkedin"
+						value={this.state.linkedin}
+						onChange={this.onChange}
+						error={errors.linkedin}
+					/>
+					<InputGroup
+						placeholder="Youtube"
+						name="youtube"
+						icon="fab fa-youtube"
+						value={this.state.youtube}
+						onChange={this.onChange}
+						error={errors.youtube}
+					/>
+					<InputGroup
+						placeholder="Instagram"
+						name="instagram"
+						icon="fab fa-instagram"
+						value={this.state.instagram}
+						onChange={this.onChange}
+						error={errors.instagram}
+					/>
 				</div>
 			);
 		}
@@ -98,22 +133,89 @@ class CreateProfile extends Component {
 								Let's get some information to make your profile stand out
 							</p>
 							<form onSubmit={this.onSubmit}>
-								<TextField placeholder="Profile Handle" name="handle" value={this.state.handle} onChange={this.onChange} info="A unique handle for your profile URL. Your fullname, nickname, company name etc." error={errors.handle}/>
-								<SelectField placeholder="Status" name="status" value={this.state.status} onChange={this.onChange} options={statusOptions} error={errors.status} info="Give us an idea of where you are in your career"/>
-								<TextField placeholder="Company (Optional)" name="company" value={this.state.company} onChange={this.onChange} error={errors.company}/>
-								<TextField placeholder="Website (Optional)" name="website" value={this.state.website} onChange={this.onChange} error={errors.website}/>
-								<TextField placeholder="Location (Optional)" name="location" value={this.state.location} onChange={this.onChange} error={errors.location}/>
-								<TextArea placeholder="Skills" name="skills" value={this.state.skills} onChange={this.onChange} error={errors.skills} info="Please use comma seperated values (eg. HTML, CSS, JavaScript, Django)"/>
-								<TextField placeholder="GitHub username (Optional)" name="githubusername" value={this.state.githubusername} onChange={this.onChange} error={errors.githubusername} info="Required if you wish to display your latest repos and a github link to be displayed on your profile"/>
-								<TextArea placeholder="Bio (Optional)" name="bio" value={this.state.bio} onChange={this.onChange} error={errors.bio} info="Tell us a little about yourself"/>
+								<TextField
+									placeholder="Profile Handle"
+									name="handle"
+									value={this.state.handle}
+									onChange={this.onChange}
+									info="A unique handle for your profile URL. Your fullname, nickname, company name etc."
+									error={errors.handle}
+								/>
+								<SelectField
+									placeholder="Status"
+									name="status"
+									value={this.state.status}
+									onChange={this.onChange}
+									options={statusOptions}
+									error={errors.status}
+									info="Give us an idea of where you are in your career"
+								/>
+								<TextField
+									placeholder="Company (Optional)"
+									name="company"
+									value={this.state.company}
+									onChange={this.onChange}
+									error={errors.company}
+								/>
+								<TextField
+									placeholder="Website (Optional)"
+									name="website"
+									value={this.state.website}
+									onChange={this.onChange}
+									error={errors.website}
+								/>
+								<TextField
+									placeholder="Location (Optional)"
+									name="location"
+									value={this.state.location}
+									onChange={this.onChange}
+									error={errors.location}
+								/>
+								<TextArea
+									placeholder="Skills"
+									name="skills"
+									value={this.state.skills}
+									onChange={this.onChange}
+									error={errors.skills}
+									info="Please use comma seperated values (eg. HTML, CSS, JavaScript, Django)"
+								/>
+								<TextField
+									placeholder="GitHub username (Optional)"
+									name="githubusername"
+									value={this.state.githubusername}
+									onChange={this.onChange}
+									error={errors.githubusername}
+									info="Required if you wish to display your latest repos and a github link to be displayed on your profile"
+								/>
+								<TextArea
+									placeholder="Bio (Optional)"
+									name="bio"
+									value={this.state.bio}
+									onChange={this.onChange}
+									error={errors.bio}
+									info="Tell us a little about yourself"
+								/>
 								<div className="mb-3">
-									<button className="btn btn-light" onClick={() => {this.setState(prev => ({displaySocialInputs: !prev.displaySocialInputs}));}}>
+									<button
+										className="btn btn-light"
+										type="button"
+										onClick={() => {
+											this.setState(prev => ({
+												displaySocialInputs: !prev.displaySocialInputs
+											}));
+										}}
+									>
 										Add Social Network Links
 									</button>
 									<span className="text-muted">Optional</span>
 								</div>
 								{socialInputs}
-								<input type="submit" value="Submit" onSubmit={this.onSubmit} className="btn btn-info btn-block mt-4"/>
+								<input
+									type="submit"
+									value="Submit"
+									onSubmit={this.onSubmit}
+									className="btn btn-info btn-block mt-4"
+								/>
 							</form>
 						</div>
 					</div>
@@ -135,4 +237,7 @@ const mapStateToProps = state => ({
 	profile: state.profile
 });
 
-export default connect(mapStateToProps, { createProfile })(withRouter(CreateProfile));
+export default connect(
+	mapStateToProps,
+	{ createProfile }
+)(withRouter(CreateProfile));

@@ -3,24 +3,37 @@ import classnames from 'classnames';
 import PropTypes from 'prop-types';
 
 const InputField = ({
-	name, 
-	placeholder, 
-	value, 
-	label, 
+	name,
+	placeholder,
+	value,
+	label,
 	error,
 	icon,
-	type, 
-	onChange, 
+	type,
+	onChange,
 	disabled,
 	autoComplete
 }) => {
 	return (
 		<div className="input-group mb-3">
 			<div className="input-group-prepend">
-				<span className="input-group-text"><i className={icon}></i></span>
+				<span className="input-group-text">
+					<i className={icon} />
+				</span>
 			</div>
 			{label && <label>{label}</label>}
-			<input type={type} className={classnames('form-control form-control-lg', {'is-invalid': error})} placeholder={placeholder} autoComplete={autoComplete} name={name} value={value} onChange={onChange} disabled={disabled} />
+			<input
+				type={type}
+				className={classnames('form-control form-control-lg', {
+					'is-invalid': error
+				})}
+				placeholder={placeholder}
+				autoComplete={autoComplete}
+				name={name}
+				value={value}
+				onChange={onChange}
+				disabled={disabled}
+			/>
 			{error && <div className="invalid-feedback">{error}</div>}
 		</div>
 	);

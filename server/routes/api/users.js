@@ -42,9 +42,12 @@ router.post('/register', (req, res) => {
 				bcrypt.hash(newUser.password, salt, (e, hash) => {
 					if (e) throw e;
 					newUser.password = hash;
-					newUser.save().then(user => res.status(200).json(user)).catch(e =>{
-						console.log(e);
-					});
+					newUser
+						.save()
+						.then(user => res.status(200).json(user))
+						.catch(e => {
+							console.log(e);
+						});
 				});
 			});
 		}
@@ -63,7 +66,7 @@ router.post('/login', (req, res) => {
 
 	const email = req.body.email;
 	const password = req.body.password;
-	
+
 	User.findOne({ email }).then(user => {
 		if (!user) {
 			errors.email = 'User not found';
@@ -75,10 +78,10 @@ router.post('/login', (req, res) => {
 				const payload = { id: user.id, name: user.name, avatar: user.avatar };
 				// Generate token
 				jwt.sign(payload, keys.secretKey, { expiresIn: 3600 }, (err, token) => {
-					res.json({ success: true, token: 'Bearer ' + token});
+					res.json({ success: true, token: 'Bearer ' + token });
 				});
 			} else {
-				errors.password = 'Password is incorrect'; 
+				errors.password = 'Password is incorrect';
 				return res.status(400).json(errors);
 			}
 		});
@@ -88,12 +91,16 @@ router.post('/login', (req, res) => {
 // @route 	GET api/users/current
 // @desc 		Returns current user
 // @access 	Private
-router.get('/current', passport.authenticate('jwt', { session: false }), (req, res) => {
-	res.status(200).json({
-		id: req.user.id,
-		name: req.user.name,
-		email: req.user.email
-	});
-});
+router.get(
+	'/current',
+	passport.authenticate('jwt', { session: false }),
+	(req, res) => {
+		res.status(200).json({
+			id: req.user.id,
+			name: req.user.name,
+			email: req.user.email
+		});
+	}
+);
 
 module.exports = router;

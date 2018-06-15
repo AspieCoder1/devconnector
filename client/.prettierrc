@@ -1,0 +1,7 @@
+{
+  "parser": "babylon",
+  "semi": true,
+  "singleQuote": true,
+  "arrowParens": "avoid",
+  "useTabs": true
+}

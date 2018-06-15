@@ -10,10 +10,10 @@ class Login extends Component {
 		email: '',
 		password: '',
 		errors: {}
-	}
+	};
 
 	onChange = e => {
-		this.setState({[e.target.name]: e.target.value});
+		this.setState({ [e.target.name]: e.target.value });
 	};
 
 	onSubmit = e => {
@@ -47,10 +47,28 @@ class Login extends Component {
 					<div className="row">
 						<div className="col-md-8 m-auto">
 							<h1 className="display-4 text-center">Log In</h1>
-							<p className="lead text-center">Sign in to your DevConnector account</p>
+							<p className="lead text-center">
+								Sign in to your DevConnector account
+							</p>
 							<form onSubmit={this.onSubmit} noValidate>
-								<TextField placeholder="Email Address" name="email" type="email" value={this.state.email} onChange={this.onChange} error={errors.email} autoComplete="email"  />
-								<TextField placeholder="Password" name="password" type="password" value={this.state.password} onChange={this.onChange} error={errors.password} autoComplete="password" />
+								<TextField
+									placeholder="Email Address"
+									name="email"
+									type="email"
+									value={this.state.email}
+									onChange={this.onChange}
+									error={errors.email}
+									autoComplete="email"
+								/>
+								<TextField
+									placeholder="Password"
+									name="password"
+									type="password"
+									value={this.state.password}
+									onChange={this.onChange}
+									error={errors.password}
+									autoComplete="password"
+								/>
 								<input type="submit" className="btn btn-info btn-block mt-4" />
 							</form>
 						</div>
@@ -65,7 +83,7 @@ Login.propTypes = {
 	auth: PropTypes.object.isRequired,
 	errors: PropTypes.object.isRequired,
 	loginUser: PropTypes.func.isRequired,
-	history: PropTypes.object.isRequired,
+	history: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -73,4 +91,7 @@ const mapStateToProps = state => ({
 	errors: state.errors
 });
 
-export default connect(mapStateToProps, { loginUser })(Login);
+export default connect(
+	mapStateToProps,
+	{ loginUser }
+)(Login);

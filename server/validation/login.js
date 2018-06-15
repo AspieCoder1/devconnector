@@ -10,7 +10,7 @@ module.exports = data => {
 	if (!Validator.isEmail(data.email)) {
 		errors.email = 'Email is invalid';
 	}
-	
+
 	if (Validator.isEmpty(data.email)) {
 		errors.email = 'Email is required';
 	}

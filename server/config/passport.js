@@ -10,12 +10,16 @@ opts.jwtFromRequest = ExstractJWT.fromAuthHeaderAsBearerToken();
 opts.secretOrKey = keys.secretKey;
 
 module.exports = passport => {
-	passport.use(new JWTStrategy(opts, (jwt_payload, done) => {
-		User.findById({ _id:  jwt_payload.id }).then(user => {
-			if (user) {
-				return done(null, user);
-			}
-			return done(null, false);
-		}).catch(e => console.log(e));
-	}));
+	passport.use(
+		new JWTStrategy(opts, (jwt_payload, done) => {
+			User.findById({ _id: jwt_payload.id })
+				.then(user => {
+					if (user) {
+						return done(null, user);
+					}
+					return done(null, false);
+				})
+				.catch(e => console.log(e));
+		})
+	);
 };
