@@ -17,11 +17,14 @@ app.use(bodyParser.json());
 // DB Config
 const db = require('./config/keys').mongoURI;
 
-mongoose.connect(db).then(() => {
-	console.log('MongoDB connected');
-}).catch(e => {
-	console.log(`MongoDB error: ${e}`);
-});
+mongoose
+	.connect(db)
+	.then(() => {
+		console.log('MongoDB connected');
+	})
+	.catch(e => {
+		console.log(`MongoDB error: ${e}`);
+	});
 
 app.use(passport.initialize());
 require('./config/passport')(passport);

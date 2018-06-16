@@ -62,8 +62,7 @@ class Register extends Component {
 							<form
 								action="create-profile.html"
 								noValidate
-								onSubmit={this.onSubmit}
-							>
+								onSubmit={this.onSubmit}>
 								<TextField
 									placeholder="Name"
 									name="name"

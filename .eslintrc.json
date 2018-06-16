@@ -44,6 +44,7 @@
         "no-undef":"off",
         "react/display-name":"off",
         "react/no-unescaped-entities": "off",
-        "arrow-parens": ["error", "as-needed"]
+        "arrow-parens": ["error", "as-needed"],
+        "no-unused-vars": "off"
     }
 }

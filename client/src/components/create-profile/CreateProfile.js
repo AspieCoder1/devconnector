@@ -203,8 +203,7 @@ class CreateProfile extends Component {
 											this.setState(prev => ({
 												displaySocialInputs: !prev.displaySocialInputs
 											}));
-										}}
-									>
+										}}>
 										Add Social Network Links
 									</button>
 									<span className="text-muted">Optional</span>

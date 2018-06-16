@@ -18,7 +18,8 @@
   },
   "plugins": ["react", "class-property", "babel"],
   "rules": {
-   "no-empty": "off",
+    "no-unused-vars":"off",
+    "no-empty": "off",
     "prefer-arrow-callback": "error",
     "no-console": "off",
     "indent": ["error", "tab", { "SwitchCase": 1 }],
