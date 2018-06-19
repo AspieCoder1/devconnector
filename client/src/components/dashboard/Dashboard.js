@@ -8,6 +8,8 @@ import {
 	deleteAccount
 } from '../../redux/actions/profileActions';
 import DashboardActions from './DashboardActions';
+import Experience from './Experience';
+import Education from './Education';
 
 class Dashboard extends Component {
 	componentDidMount() {
@@ -34,6 +36,8 @@ class Dashboard extends Component {
 						</p>
 						<DashboardActions />
 						{/* TODO: exp and edu */}
+						<Experience experience={profile.experience} />
+						<Education education={profile.education} />
 						<div style={{ marginBottom: '60px' }}>
 							<button onClick={this.onDeleteClick} className="btn btn-danger">
 								Delete My Account
