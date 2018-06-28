@@ -48,7 +48,7 @@ InputField.propTypes = {
 	onChange: PropTypes.func.isRequired,
 	disabled: PropTypes.string,
 	label: PropTypes.string,
-	type: PropTypes.string.isRequired,
+	type: PropTypes.string,
 	autoComplete: PropTypes.string
 };
 
