@@ -16,6 +16,12 @@ class Profile extends Component {
 		}
 	}
 
+	UNSAFE_componentWillReceiveProps(nextProps) {
+		if (nextProps.profile.profile === null && this.props.profile.loading) {
+			nextProps.history.push('/not-found');
+		}
+	}
+
 	render() {
 		const { profile, loading } = this.props.profile;
 		let profileContent;
@@ -53,7 +59,8 @@ class Profile extends Component {
 Profile.propTypes = {
 	profile: PropTypes.object.isRequired,
 	match: PropTypes.object.isRequired,
-	getProfileByHandle: PropTypes.func.isRequired
+	getProfileByHandle: PropTypes.func.isRequired,
+	history: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
