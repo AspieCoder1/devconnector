@@ -34,7 +34,7 @@ app.use('/api/users', users);
 app.use('/api/profile', profile);
 app.use('/api/posts', posts);
 
-if (proccess.env.NODE_ENV) {
+if (process.env.NODE_ENV) {
 	express.use(express.static(path.join(__dirname, '../client/build')));
 	app.get('*', (req, res) => {
 		res.sendFile(path.join(__dirname, '../client/build/index.html'));
