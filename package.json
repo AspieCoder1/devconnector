@@ -8,6 +8,7 @@
     "server": "nodemon server/server.js",
     "client-install": "npm install --prefix client",
     "client": "npm start --prefix client",
+    "client-build": "yarn build --prefix client",
     "dev": "concurrently \"yarn server\" \"yarn client\"",
     "lint-server": "eslint --fix ./server",
     "lint-client": "eslint --fix ./client",
