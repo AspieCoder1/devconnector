@@ -1,5 +1,5 @@
 if (process.env.NODE_ENV === 'production') {
-	modules.exports = require('./keys_prod');
+	module.exports = require('./keys_prod');
 } else {
-	modules.exports = require('./keys_dev');	
+	module.exports = require('./keys_dev');	
 }
