@@ -6,6 +6,9 @@ const postSchema = new Schema({
 		type: Schema.Types.ObjectId,
 		ref: 'users'
 	},
+	handle: {
+		type: String
+	},
 	name: {
 		type: String
 	},
@@ -38,6 +41,9 @@ const postSchema = new Schema({
 				type: String
 			},
 			avatar: {
+				type: String
+			},
+			handle: {
 				type: String
 			},
 			date: {

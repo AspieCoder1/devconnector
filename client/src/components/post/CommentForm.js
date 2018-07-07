@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import TextArea from '../common/TextArea';
-import { addPost } from '../../redux/actions/postActions';
+import { addComment } from '../../redux/actions/postActions';
 import { getCurrentProfile } from '../../redux/actions/profileActions';
 
-class PostForm extends Component {
+class CommentForm extends Component {
 	state = {
 		text: '',
 		errors: {}
@@ -31,29 +31,34 @@ class PostForm extends Component {
 	onSubmit = e => {
 		e.preventDefault();
 
+		const { postId } = this.props;
 		const { profile } = this.props.profile;
 		const { user } = this.props.auth;
-		const newPost = {
+		const newComment = {
 			text: this.state.text,
 			name: user.name,
 			avatar: user.avatar,
 			handle: profile.handle
 		};
-		this.props.addPost(newPost);
+
+		this.props.addComment(postId, newComment);
 		this.setState({ text: '' });
 	};
 
 	render() {
 		const { errors } = this.state;
+
 		return (
 			<div className="post-form mb-3">
 				<div className="card card-info">
-					<div className="card-header bg-info text-white">Say Somthing...</div>
+					<div className="card-header bg-info text-white">
+						Make a comment...
+					</div>
 					<div className="card-body">
 						<form onSubmit={this.onSubmit}>
 							<div className="form-group">
 								<TextArea
-									placeholder="Create a post"
+									placeholder="Reply to post"
 									name="text"
 									value={this.state.text}
 									onChange={this.onChange}
@@ -71,12 +76,13 @@ class PostForm extends Component {
 	}
 }
 
-PostForm.propTypes = {
-	addPost: PropTypes.func.isRequired,
+CommentForm.propTypes = {
+	addComment: PropTypes.func.isRequired,
+	getCurrentProfile: PropTypes.func.isRequired,
 	auth: PropTypes.object.isRequired,
 	errors: PropTypes.object.isRequired,
 	profile: PropTypes.object.isRequired,
-	getCurrentProfile: PropTypes.func.isRequired
+	postId: PropTypes.string.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -87,5 +93,5 @@ const mapStateToProps = state => ({
 
 export default connect(
 	mapStateToProps,
-	{ addPost, getCurrentProfile }
-)(PostForm);
+	{ addComment, getCurrentProfile }
+)(CommentForm);

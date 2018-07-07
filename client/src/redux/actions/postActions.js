@@ -1,5 +1,9 @@
 import axios from 'axios';
 
+export const setPostLoading = () => ({
+	type: 'POST_LOADING'
+});
+
 export const addPost = postData => dispatch => {
 	axios
 		.post('/api/posts', postData)
@@ -9,6 +13,107 @@ export const addPost = postData => dispatch => {
 				payload: res.data
 			})
 		)
+		.catch(err =>
+			dispatch({
+				type: 'GET_ERRORS',
+				payload: err.response.data
+			})
+		);
+};
+
+export const getPosts = () => dispatch => {
+	dispatch(setPostLoading());
+	axios
+		.get('/api/posts')
+		.then(res =>
+			dispatch({
+				type: 'GET_POSTS',
+				payload: res.data
+			})
+		)
+		.catch(err =>
+			dispatch({
+				type: 'GET_POSTS',
+				payload: null
+			})
+		);
+};
+
+export const getPost = id => dispatch => {
+	dispatch(setPostLoading());
+	axios
+		.get(`/api/posts/${id}`)
+		.then(res =>
+			dispatch({
+				type: 'GET_POST',
+				payload: res.data
+			})
+		)
+		.catch(err =>
+			dispatch({
+				type: 'GET_POST',
+				payload: null
+			})
+		);
+};
+
+export const deletePost = id => dispatch => {
+	axios
+		.delete(`/api/posts/${id}`)
+		.then(() =>
+			dispatch({
+				type: 'DELETE_POST',
+				payload: id
+			})
+		)
+		.catch(err =>
+			dispatch({
+				type: 'GET_ERRORS',
+				payload: err.response.data
+			})
+		);
+};
+
+export const addLike = id => dispatch => {
+	axios
+		.post(`/api/posts/like/${id}`)
+		.then(() => dispatch(getPosts()))
+		.catch(err =>
+			dispatch({
+				type: 'GET_ERRORS',
+				payload: err.response.data
+			})
+		);
+};
+
+export const unlike = id => dispatch => {
+	axios
+		.post(`/api/posts/unlike/${id}`)
+		.then(() => dispatch(getPosts()))
+		.catch(err =>
+			dispatch({
+				type: 'GET_ERRORS',
+				payload: err.response.data
+			})
+		);
+};
+
+export const addComment = (id, commentData) => dispatch => {
+	axios
+		.post(`/api/posts/comment/${id}`, commentData)
+		.then(() => dispatch(getPost(id)))
+		.catch(err =>
+			dispatch({
+				type: 'GET_ERRORS',
+				payload: err.response.data
+			})
+		);
+};
+
+export const deleteComment = (id, commentId) => dispatch => {
+	axios
+		.delete(`/api/posts/comment/${id}/${commentId}`)
+		.then(() => dispatch(getPost(id)))
 		.catch(err =>
 			dispatch({
 				type: 'GET_ERRORS',
